@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <time.h>
+
+// Iterative Factorial
+long long factorialIterative(int n) {
+    long long fact = 1;
+    for(int i = 1; i <= n; i++) {
+        fact *= i;
+    }
+    return fact;
+}
+
+// Recursive Factorial
+long long factorialRecursive(int n) {
+    if(n == 0 || n == 1)
+        return 1;
+    return n * factorialRecursive(n - 1);
+}
+
+int main() {
+    int n;
+    clock_t start, end;
+    double time_taken;
+
+    printf("Enter a number: ");
+    scanf("%d", &n);
+
+    // Iterative timing
+    start = clock();
+    long long iterResult = factorialIterative(n);
+    end = clock();
+    time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+
+    printf("\nIterative Factorial = %lld", iterResult);
+    printf("\nTime taken (Iterative): %f seconds\n", time_taken);
+
+    // Recursive timing
+    start = clock();
+    long long recResult = factorialRecursive(n);
+    end = clock();
+    time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+
+    printf("\nRecursive Factorial = %lld", recResult);
+    printf("\nTime taken (Recursive): %f seconds\n", time_taken);
+
+    return 0;
+}
