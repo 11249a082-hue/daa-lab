@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+#define MAX 100
+
+int main() {
+    int V, E;
+
+    printf("Enter number of vertices and edges: ");
+    scanf("%d %d", &V, &E);
+
+    int edge[E][2];
+    int visited[V];
+
+    for (int i = 0; i < V; i++)
+        visited[i] = 0;
+
+    printf("Enter edges (u v):\n");
+    for (int i = 0; i < E; i++) {
+        scanf("%d %d", &edge[i][0], &edge[i][1]);
+    }
+
+    printf("\nVertex Cover (Approximation):\n");
+
+    for (int i = 0; i < E; i++) {
+        int u = edge[i][0];
+        int v = edge[i][1];
+
+        if (!visited[u] && !visited[v]) {
+            visited[u] = visited[v] = 1;
+            printf("%d %d\n", u, v);
+        }
+    }
+
+    return 0;
+}
