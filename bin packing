@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+int main() {
+    int items[50], bins[50];
+    int n, capacity;
+
+    printf("Enter number of items: ");
+    scanf("%d", &n);
+
+    printf("Enter bin capacity: ");
+    scanf("%d", &capacity);
+
+    printf("Enter item sizes:\n");
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &items[i]);
+    }
+
+    int binCount = 0;
+
+    // Initialize all bins as empty
+    for(int i = 0; i < n; i++) {
+        bins[i] = 0;
+    }
+
+    // First Fit logic
+    for(int i = 0; i < n; i++) {
+        int placed = 0;
+
+        for(int j = 0; j < binCount; j++) {
+            if(bins[j] + items[i] <= capacity) {
+                bins[j] += items[i];
+                placed = 1;
+                break;
+            }
+        }
+
+        if(!placed) {
+            bins[binCount] = items[i];
+            binCount++;
+        }
+    }
+
+    printf("\nNumber of bins used = %d\n", binCount);
+
+    return 0;
+}
