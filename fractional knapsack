@@ -1,0 +1,54 @@
+#include <stdio.h>
+
+// Structure for an item
+struct Item {
+    int weight;
+    int value;
+};
+
+// Function to sort items by value/weight ratio (descending)
+void sortItems(struct Item arr[], int n) {
+    for(int i = 0; i < n - 1; i++) {
+        for(int j = i + 1; j < n; j++) {
+            float r1 = (float)arr[i].value / arr[i].weight;
+            float r2 = (float)arr[j].value / arr[j].weight;
+
+            if(r1 < r2) {
+                struct Item temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+
+// Fractional Knapsack function
+float fractionalKnapsack(struct Item arr[], int n, int capacity) {
+    sortItems(arr, n);
+
+    float totalValue = 0.0;
+
+    for(int i = 0; i < n; i++) {
+        if(capacity >= arr[i].weight) {
+            capacity -= arr[i].weight;
+            totalValue += arr[i].value;
+        } else {
+            totalValue += arr[i].value * ((float)capacity / arr[i].weight);
+            break;
+        }
+    }
+
+    return totalValue;
+}
+
+int main() {
+    struct Item arr[] = {{10, 60}, {20, 100}, {30, 120}};
+    int n = 3;
+    int capacity = 50;
+
+    float maxValue = fractionalKnapsack(arr, n, capacity);
+
+    printf("Maximum value in knapsack = %.2f\n", maxValue);
+
+    return 0;
+}
